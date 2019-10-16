@@ -1,0 +1,4 @@
+/.vagrant
+*.sql
+*.sh
+Vagrantfile
