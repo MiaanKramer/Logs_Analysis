@@ -49,37 +49,42 @@ ORDER BY
     percentage;
 """
 
+
 # Connects to the database(Re - usable)
 def db_connect(sql_query):
-	db = psycopg2.connect(database=DBNAME)
-	c = db.cursor()
-	c.execute(sql_query)
-	query_results = c.fetchall()
-	return query_results
+    db = psycopg2.connect(database=DBNAME)
+    c = db.cursor()
+    c.execute(sql_query)
+    query_results = c.fetchall()
+    return query_results
+
 
 # Retrieves the top three articles
 # by using the article_query combined with the db_connect
 def most_viewed_articles():
-	articles = db_connect(article_query)
-	print('\nMost popular three articles of all time:\n')
-	for art in articles:
-		print(str(art[0]) + ' - ' + str(art[2]) + ' views')
+    articles = db_connect(article_query)
+    print('\nMost popular three articles of all time:\n')
+    for art in articles:
+        print(str(art[0]) + ' - ' + str(art[2]) + ' views')
+
 
 # Returns the authors with their total views across all
 #  of their articles and sorts them by total views descending
 def most_popular_authors():
-	authors = db_connect(author_query)
-	print('\nMost popular article authors of all time:\n')
-	for auth in authors:
-		print(auth[0] + ' - ' + str(auth[1]) + ' views')
+    authors = db_connect(author_query)
+    print('\nMost popular article authors of all time:\n')
+    for auth in authors:
+        print(auth[0] + ' - ' + str(auth[1]) + ' views')
+
 
 # Returns all the days where more than 1 %
 #  of requests resulted in an error
 def error_percentages():
-	errors = db_connect(log_query)
-	print('\nDays that more than 1% of requests lead to errors:\n')
-	for error in errors:
-		print(error[0] + ' - ' + '%.2f' % error[1] + '% errors')
+    errors = db_connect(log_query)
+    print('\nDays that more than 1% of requests lead to errors:\n')
+    for error in errors:
+        print(error[0] + ' - ' + '%.2f' % error[1] + '% errors')
+
 
 # Calls all of the functions to be printed out for the user to see
 most_viewed_articles()
